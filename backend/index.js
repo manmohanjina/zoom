@@ -5,7 +5,9 @@ const { loginRoute } = require("./routers/loginRouter");
 const { registerRouter } = require("./routers/registerRouter");
 const { testRoute } = require("./routers/testRoute");
 const { todoRoute } = require("./routers/todoRoute");
+const cors=require('cors')
 const app = express();
+app.use(cors())
 app.use(express.json());
 require("dotenv").config();
 
