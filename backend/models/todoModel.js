@@ -9,19 +9,21 @@ const todoSchema=mongoose.Schema({
     },
     status:{
         type:Boolean,
-        require:true
+        require:true,
+        default:false
     },
     additionalnote:{
         type:String,
         require:true
     },
-    userID:string
+    userID:String
+   
 
 
 })
 
-const todoModel=mongoose.model('alltodo',todoSchema)
+const TodoModel=mongoose.model('alltodo',todoSchema)
 
 module.exports={
-    todoModel
+    TodoModel
 }

@@ -4,7 +4,7 @@ const bcrypt=require('bcrypt')
 
 const registerRouterController = async (req, res) => {
   try {
-    const { name, email, password, security } = req.body;
+    const { name, email, password, security,role } = req.body;
     const userAlredyPresent=await registerModel.findOne({email})
     if(userAlredyPresent){
         return res.status(201).send({"error":"user already exist please login again"})
@@ -18,7 +18,8 @@ const registerRouterController = async (req, res) => {
             name,
             email,
             password:hashed_pass,
-            security
+            security,
+            role
           }).save();
           res.status(201).send({"succ":"user successfully added"})
     })

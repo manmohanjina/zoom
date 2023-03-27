@@ -1,11 +1,11 @@
 
 const mongoose=require('mongoose')
 const express=require('express')
-const { tokenValidator } = require('../midlleware/validator')
+const { tokenValidator, isAdmin } = require('../midlleware/validator')
 
 const testRoute=express.Router()
 
-testRoute.get('/test',tokenValidator,async(req,res)=>{
+testRoute.get('/test',tokenValidator ,isAdmin,async(req,res)=>{
 res.send("testing passed")
 })
 

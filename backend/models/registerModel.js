@@ -18,6 +18,10 @@ const mongoose=require('mongoose');
     type:String,
     require:true,
    },
+   role:{
+    type :Number,
+    default:0
+   }
   })
 
   const registerModel=mongoose.model("registereduser",regisetrSchema)
