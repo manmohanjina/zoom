@@ -2,10 +2,7 @@ const express = require("express");
 const { TodoModel } = require("../models/todoModel");
 const fs=require('fs')
 
-if (typeof localStorage === "undefined" || localStorage === null) {
-    var LocalStorage = require('node-localstorage').LocalStorage;
-    localStorage = new LocalStorage('./scratch');
-  }
+
 
 const todoRouterController = async (req, res) => {
   try {
