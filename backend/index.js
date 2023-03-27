@@ -12,10 +12,10 @@ app.use(express.json());
 require("dotenv").config();
 
 app.use('/',testRoute)
-app.use("/", registerRouter);
-app.use("/", loginRoute);
-app.use('/',todoRoute)
-app.use('/',forgotRouter)
+// app.use("/", registerRouter);
+// app.use("/", loginRoute);
+// app.use('/',todoRoute)
+// app.use('/',forgotRouter)
 
 app.listen(process.env.port, () => {
   connection();
