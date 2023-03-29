@@ -22,6 +22,7 @@ import ExampleTodoCard from "../todoCard/ExampleTodoCard";
 
 import { useRef, useState } from "react";
 import Type from "../typeComponent/Type";
+import { Link } from "react-router-dom";
 
 export default function Home() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -129,10 +130,12 @@ export default function Home() {
           </Box>
         ))}
       </Flex>
-      <Box border={"1px solid red"}>
-        <Text color={"red"} as="b" fontSize={"2xl"}>
-          create a account now{" "}
-        </Text>
+      <Box p="5" w="50%" m="auto" bg="red.400" textAlign={"center"}>
+        <Link to="/login">
+          <Text color={"black"} as="b" fontSize={"2xl"}>
+            create a account now{" "}
+          </Text>
+        </Link>
       </Box>
 
       <Modal isOpen={isOpen} onClose={onClose}>

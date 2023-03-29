@@ -8,15 +8,16 @@ import { store } from './redux-arch/store';
 import { BrowserRouter } from 'react-router-dom';
 import { ChakraProvider } from '@chakra-ui/react';
 
+console.log(store.getState())
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-
+<Provider store={store} >
   <BrowserRouter>
     <ChakraProvider>
     <App />
     </ChakraProvider>
     </BrowserRouter>
-    
+    </Provider>
 
 );
 
