@@ -60,7 +60,7 @@ export default function Login() {
     <Flex minH={"100vh"} align={"center"} justify={"center"}>
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
-          <Heading fontSize={"4xl"}>Sign in to your account</Heading>
+          <Heading fontSize={"4xl"}> Log-In here!</Heading>
           {error ? (
             <Text as="b" color={"red"}>
               {error.error}
@@ -74,7 +74,11 @@ export default function Login() {
         </Stack>
         <Box
           rounded={"lg"}
-          bg={useColorModeValue("white", "gray.700")}
+          _hover={{
+            bg: "white",
+            transitionDelay: "0.5s",
+            transitionDuration: "0.5s",
+          }}
           boxShadow={"lg"}
           p={8}
         >

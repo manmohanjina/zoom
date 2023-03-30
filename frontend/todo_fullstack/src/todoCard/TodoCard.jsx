@@ -1,12 +1,17 @@
-import { Box, Flex, Input } from "@chakra-ui/react";
+import { Box, Flex, Input, Text } from "@chakra-ui/react";
 import {
   EditIcon,
   ArrowDownIcon,
   ArrowUpIcon,
   DeleteIcon,
+  CheckIcon,
+  CloseIcon,
 } from "@chakra-ui/icons";
 export default function TodoCard({ elm, handelDel, handelEdit, handelToggle }) {
-  console.log(elm);
+ 
+ 
+ 
+ 
   return (
     <Box>
       <Flex
@@ -15,64 +20,91 @@ export default function TodoCard({ elm, handelDel, handelEdit, handelToggle }) {
         borderRadius="40px"
         p="10"
         gap={10}
-        bg={elm.status ? "green.200" : "red.200"}
+        bg={elm.status ? "" : "red.300"}
         opacity={"900%"}
       >
         <Box>
-          <Input
-            bg="black"
-            disabled={true}
-            borderRadius={"20px"}
-            fontSize="xl"
-            p="3"
-            placeholder={elm.titel}
-          />
+          <Text
+            fontFamily={"cursive"}
+            fontSize={{ base: "xl", md: "lg", lg: "xl" }}
+            as="i"
+          >
+            {elm.titel}
+          </Text>
         </Box>
 
         <Box
           borderRadius={"20px"}
-          bg="yellow.100"
+          bg={elm.status ? "" : "red.100"}
           fontSize={"xl"}
           border={"1px solid red"}
-          as="i"
+          as={elm.status ? "s" : "i"}
+          textAlign={"center"}
+          color={"black"}
         >
-          {elm.additionalnote}
+          note:-{elm.additionalnote}
         </Box>
         <Box
-          fontSize={"20px"}
-          as="i"
+          display={"flex"}
+          justifyContent="space-evenly"
+          h="30px"
+          color={elm.status ? "green.500" : "red.600"}
+          bg="black"
           borderRadius={"20px"}
-          border="1px solid red"
-          bg="yellow.200"
         >
-          {elm?.status ? "completed" : "incomplete"}
+          Status
+          {elm?.status ? (
+            <Box>
+              <CheckIcon />
+            </Box>
+          ) : (
+            <Box>
+              <CloseIcon />
+            </Box>
+          )}
         </Box>
         <Flex justifyContent={"space-evenly"} p="3">
           <Box>
             <EditIcon
               boxSize={7}
-              _hover={{ cursor: "pointer", color: "orange.300" }}
-              onClick={handelEdit}
+              _hover={{
+                cursor: "pointer",
+                color: "orange.300",
+                transform: "scale(2)",
+              }}
+              onClick={() => handelEdit(elm._id)}
             />
           </Box>
-          <Box onClick={() => handelToggle(elm.id)}>
+          <Box onClick={() => handelToggle(elm._id)}>
             {elm.status ? (
               <ArrowDownIcon
                 boxSize={7}
-                _hover={{ cursor: "pointer", color: "pink.600" }}
+                _hover={{
+                  cursor: "pointer",
+                  color: "pink.600",
+                  transform: "scale(2)",
+                }}
               />
             ) : (
               <ArrowUpIcon
                 boxSize={7}
-                _hover={{ cursor: "pointer", color: "pink.600" }}
+                _hover={{
+                  cursor: "pointer",
+                  color: "pink.600",
+                  transform: "scale(2)",
+                }}
               />
             )}
           </Box>
           <Box>
             <DeleteIcon
               boxSize={7}
-              _hover={{ cursor: "pointer", color: "red.600" }}
-              onClick={() => handelDel(elm.id)}
+              _hover={{
+                cursor: "pointer",
+                color: "red.600",
+                transform: "scale(2)",
+              }}
+              onClick={(elm) => handelDel(elm._id)}
             />
           </Box>
         </Flex>

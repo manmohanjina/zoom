@@ -16,6 +16,7 @@ import {
   ModalBody,
   ModalCloseButton,
   Button,
+  useMediaQuery,
 } from "@chakra-ui/react";
 
 import ExampleTodoCard from "../todoCard/ExampleTodoCard";
@@ -26,6 +27,8 @@ import { Link } from "react-router-dom";
 
 export default function Home() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [smallerDisplay] = useMediaQuery("(max-width: 800px)");
+
   const ref = useRef(null);
   const [dummytodo, setDummyData] = useState([
     {
@@ -101,26 +104,31 @@ export default function Home() {
   };
 
   return (
-    <Box
-      w="full"
-      border="1px solid red"
-      p="10"
-      display={"flex"}
-      flexDirection="column"
-      gap={10}
-    >
+    <Box w="full" p="10" display={"flex"} flexDirection="column" gap={10}>
       <Heading
-        fontSize={"6xl"}
+        fontSize={{ base: "3xl", md: "3xl", lg: "6xl" }}
         as="b"
-        color={"red.300"}
-        border={"1px solid red"}
-        p="6"
+        color={"blackAlpha.600"}
+        p={{ base: "3", md: "4", lg: "6" }}
+        w={{ base: "80%", sm: "80%", lg: "80%" }}
+        m="auto"
       >
         Create a memo in no time... <Type />
       </Heading>
-      <Flex w="full" justifyContent="space-evenly">
+      <Flex
+        w={{ base: "80%", md: "60%", lg: "100%" }}
+        m="auto"
+        gap={50}
+        flexDirection={smallerDisplay && "column"}
+        justifyContent="space-evenly"
+      >
         {dummytodo.map((elm) => (
-          <Box bg="white.100" key={elm.id}>
+          <Box
+            bg="white.100"
+            key={elm.id}
+            display="flex"
+            flexDirection={"column"}
+          >
             <ExampleTodoCard
               elm={elm}
               handelDel={handelDel}

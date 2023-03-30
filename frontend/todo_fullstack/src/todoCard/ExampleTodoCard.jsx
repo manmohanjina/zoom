@@ -5,6 +5,7 @@ import {
   Button,
   FormControl,
   FormLabel,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import {
   EditIcon,
@@ -20,14 +21,19 @@ export default function ExampleTodoCard({
   handelDel,
   handelToggle,
 }) {
+  const [smallerDisplay] = useMediaQuery("(min-width: 400px)");
+
   return (
     <Flex
       boxShadow={"dark-lg"}
-      flexDirection={"column"}
       borderRadius="40px"
+      flexDirection={"column"}
+      justifyContent="center"
+      alignItems={"center"}
       p="10"
       gap={10}
-      bg={elm.status ? "green.200" : "red.200"}
+      m="auto"
+      bg={elm.status ? "" : "red.200"}
       opacity={"90%"}
     >
       <Box>
@@ -35,18 +41,27 @@ export default function ExampleTodoCard({
           bg="white"
           disabled={true}
           borderRadius={"20px"}
-          p="3"
+          p="4"
           placeholder={elm.title}
         />
       </Box>
 
-      <Box fontSize={"xl"} border={"1px solid red"} as="i">
+      <Box
+        fontSize={"xl"}
+        fontStyle="revert"
+        fontWeight={"medium"}
+        as={elm.status ? "s" : "i"}
+      >
         {elm.additionalnote}
       </Box>
-      <Box fontSize={"20px"} as="i">
+      <Box
+        fontSize={"30px"}
+        as="i"
+        color={elm.status ? "green.500" : "red.400"}
+      >
         {elm.status ? "completed" : "incomplete"}
       </Box>
-      <Flex justifyContent={"space-evenly"} p="3">
+      <Flex gap={4} justifyContent={"space-evenly"} p="3">
         <Box>
           <EditIcon
             boxSize={7}

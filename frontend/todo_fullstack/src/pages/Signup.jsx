@@ -18,6 +18,7 @@ import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { registerFN } from "../redux-arch/auth-reducer/action";
+import { delay } from "framer-motion";
 
 export default function Signup() {
   const dispatch = useDispatch();
@@ -48,7 +49,9 @@ export default function Signup() {
   const handelSubmit = () => {
     dispatch(registerFN(text));
     if (success && res.succ) {
-      navigate("/login");
+      setTimeout(() => {
+        navigate("/login");
+      }, 1000);
     }
   };
 
@@ -69,7 +72,8 @@ export default function Signup() {
         </Stack>
         <Box
           rounded={"lg"}
-          bg={useColorModeValue("white", "gray.700")}
+          bg={"transparent"}
+          _hover={{ bg: "white", transitionDelay: "0.5s",transitionDuration:"0.5s" }}
           boxShadow={"lg"}
           p={8}
         >

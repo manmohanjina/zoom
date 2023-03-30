@@ -14,13 +14,22 @@ import {
   Input,
   Grid,
   GridItem,
+  SkeletonCircle,
+  SkeletonText,
+  Skeleton,
 } from "@chakra-ui/react";
-import axios from "axios";
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { json } from "react-router-dom";
-import { getTodoData, SubmitTodo } from "../redux-arch/main-reducer/action";
-import ExampleTodoCard from "../todoCard/ExampleTodoCard";
+
+import {
+  delFn,
+  edit_Fn,
+  getTodoData,
+  SubmitTodo,
+  Toggle_Fn,
+} from "../redux-arch/main-reducer/action";
+
 import TodoCard from "../todoCard/TodoCard";
 
 export default function Todo() {
@@ -28,6 +37,7 @@ export default function Todo() {
     titel: "",
     additionalnote: "",
   });
+
   const handelChagne = (e) => {
     const { name, value } = e.target;
     setText({ ...text, [name]: value });
@@ -36,38 +46,73 @@ export default function Todo() {
   const handelSubmit = () => {
     dispatch(SubmitTodo(text));
   };
+
   const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handelEdit = (id) => {
+    const titel = prompt("Enter titel");
+    const additionalnote = prompt("Enter Additional note");
+    if (!titel || !additionalnote) {
+      return alert("feilds cannot be empty");
+    }
+
+    let payload = { titel, additionalnote };
+    dispatch(edit_Fn(id, payload));
+  };
+  const handelToggle = (id) => {
+    dispatch(Toggle_Fn(id));
+  };
+  const handelDel = (id) => {
+    dispatch(delFn(id));
+  };
 
   const dispatch = useDispatch();
   const { loading, data } = useSelector((store) => {
     return {
       loading: store.appreducer.isloading,
-      data: store.appreducer.data,
+      data: store.appreducer.data || [],
     };
   });
+  console.log(data, "data");
 
   useEffect(() => {
     dispatch(getTodoData());
   }, []);
 
-  console.log(data, "data");
-
   return (
     <Box>
+      <Box>
+        {" "}
+        {loading && (
+          <Skeleton startColor="pink.500" endColor="orange.500" height="30px" />
+        )}
+      </Box>
       <Flex
-        w="30%"
+        border="1px solid black"
+        w={{ base: "100%", md: "60%", lg: "30%" }}
         m="auto"
         justifyContent={"space-between"}
         alignItems="center"
         p={10}
       >
-        <Text fontSize={"2xl"} as="i">
+        <Text color={"cyan.100"} fontSize={"2xl"} as="i">
           start creating TODO's
         </Text>
-        <Button bg="yellow" onClick={onOpen}>
-          Open Modal
+        <Button bg="cyan.100" onClick={onOpen}>
+          Create a Todo
         </Button>
       </Flex>
+      {!data ? (
+        <Box
+          textAlign={"center"}
+          fontSize="2xl"
+          border={"1px solid red"}
+          p="10"
+        >
+          seem's like nothing here
+        </Box>
+      ) : null}
+
       <Grid
         templateRows="repeat(2, 1fr)"
         templateColumns={{
@@ -83,7 +128,12 @@ export default function Todo() {
             return (
               <Box key={elm._id}>
                 <GridItem>
-                  <TodoCard elm={elm} />
+                  <TodoCard
+                    elm={elm}
+                    handelDel={() => handelDel(elm._id)}
+                    handelEdit={() => handelEdit(elm._id)}
+                    handelToggle={() => handelToggle(elm._id)}
+                  />
                 </GridItem>
               </Box>
             );

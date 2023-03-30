@@ -5,6 +5,7 @@ const intstate = {
   isError: false,
   success: false,
   isAdmin: false,
+  lsuccess:false,
   res: "",
 };
 
@@ -22,12 +23,18 @@ const reducer = (state = intstate, action) => {
     case types.LOGINREQ:
       return { ...state, isloading: true };
     case types.LOGINSUCCES:
-      
-        return { ...state, isloading: false, success: true, res: payload ,isAdmin:payload.role==1?true:false };
+      return {
+        ...state,
+        isloading: false,
+        success: true,
+        res: payload,
+        isAdmin: payload.role == 1 ? true : false,lsuccess:true,
+      };
     case types.LOGINERROR:
-      return { ...state, isloading: false, success: false, isError: payload };
+      return { ...state, isloading: false, success: false,  isError: payload };
 
-      case types.LOGOUT:return {...state, success:false, res:"",isAdmin:false,}
+    case types.LOGOUT:
+      return { ...state, success: false, res: "", isAdmin: false };
     default:
       return state;
   }
